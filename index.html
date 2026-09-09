@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Banao AI - Text to Video</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #0f172a;
+      color: white;
+    }
+
+    .container {
+      max-width: 700px;
+      margin: auto;
+      padding: 30px 20px;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 42px;
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+      text-align: center;
+      color: #cbd5e1;
+      margin-bottom: 30px;
+    }
+
+    .card {
+      background: #1e293b;
+      padding: 25px;
+      border-radius: 18px;
+    }
+
+    label {
+      display: block;
+      margin: 18px 0 8px;
+      font-weight: bold;
+    }
+
+    textarea,
+    select {
+      width: 100%;
+      padding: 14px;
+      border-radius: 10px;
+      border: 1px solid #475569;
+      background: #0f172a;
+      color: white;
+      font-size: 16px;
+    }
+
+    textarea {
+      min-height: 180px;
+      resize: vertical;
+    }
+
+    button {
+      width: 100%;
+      margin-top: 25px;
+      padding: 15px;
+      border: none;
+      border-radius: 10px;
+      background: #6366f1;
+      color: white;
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    button:active {
+      transform: scale(0.98);
+    }
+
+    #status {
+      display: none;
+      text-align: center;
+      margin-top: 20px;
+      color: #cbd5e1;
+    }
+
+    .features {
+      margin-top: 25px;
+      padding: 18px;
+      background: #0f172a;
+      border-radius: 12px;
+      color: #cbd5e1;
+      line-height: 1.8;
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 25px;
+      color: #64748b;
+      font-size: 14px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+
+    <h1>🎬 Banao AI</h1>
+
+    <p class="subtitle">
+      Text ko AI video mein badalne ki shuruaat karein
+    </p>
+
+    <div class="card">
+
+      <label for="story">✍️ Apni Story</label>
+
+      <textarea
+        id="story"
+        placeholder="Example: Ek chhota ladka apne sapne ko poora karne ke liye mehnat karta hai..."
+      ></textarea>
+
+      <label for="duration">⏱️ Video Length</label>
+
+      <select id="duration">
+        <option value="30">30 Seconds</option>
+        <option value="60">1 Minute</option>
+        <option value="120">2 Minutes</option>
+        <option value="180">3 Minutes</option>
+        <option value="240">4 Minutes</option>
+      </select>
+
+      <label for="language">🌐 Language</label>
+
+      <select id="language">
+        <option value="Hindi">Hindi</option>
+        <option value="English">English</option>
+        <option value="Bodo">Bodo</option>
+      </select>
+
+      <button onclick="generateVideo()">
+        🚀 Generate Video
+      </button>
+
+      <div id="status"></div>
+
+      <div class="features">
+        🎬 AI Scene Generation<br>
+        🎙️ AI Voice Over<br>
+        🖼️ AI Images<br>
+        🎵 Background Music<br>
+        ⏱️ Up to 4 Minute Videos
+      </div>
+
+    </div>
+
+    <div class="footer">
+      © 2026 Banao AI
+    </div>
+
+  </div>
+
+  <script>
+
+    function generateVideo() {
+
+      const story = document.getElementById("story").value.trim();
+      const duration = document.getElementById("duration").value;
+      const language = document.getElementById("language").value;
+      const status = document.getElementById("status");
+
+      if (story === "") {
+        alert("Pehle apni story likho!");
+        return;
+      }
+
+      status.style.display = "block";
+
+      status.innerText =
+        "⏳ Story ready! " +
+        duration +
+        " seconds ka " +
+        language +
+        " AI video prepare kiya jayega.";
+
+    }
+
+  </script>
+
+</body>
+</html>
