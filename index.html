@@ -166,28 +166,48 @@
 
   <script>
 
-    function generateVideo() {
+    async function generateVideo() {
+  const story = document.getElementById("story").value.trim();
+  const duration = document.getElementById("duration").value;
+  const language = document.getElementById("language").value;
+  const status = document.getElementById("status");
 
-      const story = document.getElementById("story").value.trim();
-      const duration = document.getElementById("duration").value;
-      const language = document.getElementById("language").value;
-      const status = document.getElementById("status");
+  if (story === "") {
+    alert("Pehle apni story likho!");
+    return;
+  }
 
-      if (story === "") {
-        alert("Pehle apni story likho!");
-        return;
-      }
+  status.style.display = "block";
+  status.innerText = "⏳ Story server par bheji ja rahi hai...";
 
-      status.style.display = "block";
+  try {
+    const response = await fetch("/api/generate", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        story: story,
+        duration: Number(duration),
+        language: language
+      })
+    });
 
-      status.innerText =
-        "⏳ Story ready! " +
-        duration +
-        " seconds ka " +
-        language +
-        " AI video prepare kiya jayega.";
+    const data = await response.json();
 
+    if (!response.ok) {
+      throw new Error(data.error || "Request failed");
     }
+
+    status.innerText =
+      "✅ Story successfully server par pahunch gayi! " +
+      duration + " seconds ka " + language + " video request ready hai.";
+
+  } catch (error) {
+    status.innerText =
+      "❌ Error: " + error.message;
+  }
+}
 
   </script>
 
