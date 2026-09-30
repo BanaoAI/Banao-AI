@@ -2,6 +2,33 @@ export default {
   async fetch(request, env) {
     const url = new URL(request.url);
 
+    // AI connection test
+    if (url.pathname === "/api/ai-test") {
+      try {
+        const result = await env.AI.run(
+          "@cf/meta/llama-3.1-8b-instruct-fast",
+          {
+            prompt: "Reply with exactly: Banao AI is connected!"
+          }
+        );
+
+        return Response.json({
+          ok: true,
+          ai: result
+        });
+
+      } catch (error) {
+        return Response.json(
+          {
+            ok: false,
+            error: error.message
+          },
+          { status: 500 }
+        );
+      }
+    }
+
+    // Existing generate endpoint
     if (url.pathname === "/api/generate" && request.method === "POST") {
       try {
         const body = await request.json();
@@ -20,9 +47,9 @@ export default {
         return Response.json({
           ok: true,
           message: "Story received successfully!",
-          story: story,
-          duration: duration,
-          language: language
+          story,
+          duration,
+          language
         });
 
       } catch (error) {
