@@ -27,7 +27,36 @@ export default {
         );
       }
     }
+// Video generation test
+if (url.pathname === "/api/video-test") {
+  try {
+    const result = await env.AI.run(
+      "pixverse/v6",
+      {
+        prompt: "A beautiful cinematic sunrise over green mountains, realistic, smooth camera movement",
+        aspect_ratio: "16:9",
+        duration: 5,
+        quality: "360p",
+        generate_audio: false
+      }
+    );
 
+    return Response.json({
+      ok: true,
+      video: result?.video || result?.result?.video,
+      result: result
+    });
+
+  } catch (error) {
+    return Response.json(
+      {
+        ok: false,
+        error: error.message
+      },
+      { status: 500 }
+    );
+  }
+}
     // Existing generate endpoint
     if (url.pathname === "/api/generate" && request.method === "POST") {
       try {
